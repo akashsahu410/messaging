@@ -5,17 +5,10 @@ import Signup from './signup'
 import Login from './login'
 import jwt from 'jsonwebtoken'
 
-// let decode_email=jwt.decode(localStorage.getItem("email"))
-// console.log(decode_email)
-
-// console.log("verif", jwt.verify(localStorage.getItem("email"), 'pokemon', function(err, decoded) {
-//     return decoded
-// }).email)
-// let decoded = jwt.verify(localStorage.getItem('email'), 'pokemon');
 console.log("process env",process.env)
 const PrivateRoute = ({ component: Component, ...rest }) => (
     (<Route {...rest} render={(props) => (
-        localStorage.length>0 ? (jwt.verify(localStorage.getItem("email"), 'pokemon', (err, decoded)=>{
+        localStorage.length>0 ? (jwt.verify(localStorage.getItem("email"), 'secret', (err, decoded)=>{
             if(err){
                 localStorage.clear()
                 console.log("props",props)
@@ -30,7 +23,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
   //to check for login and signup 
   const Private = ({ component: Component, ...rest }) => (
     (<Route {...rest} render={(props) => (
-        localStorage.length>0 ? (jwt.verify(localStorage.getItem("email"), 'pokemon', (err, decoded)=> {
+        localStorage.length>0 ? (jwt.verify(localStorage.getItem("email"), 'secret', (err, decoded)=> {
             if(err)
             {
                 localStorage.clear()
