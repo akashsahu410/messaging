@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import $ from 'jquery'
-import jwt from 'jsonwebtoken'
 import io from 'socket.io-client'
 import {uniqBy} from 'lodash'
 import './App.css'
@@ -139,6 +138,7 @@ class Chat extends Component {
 								<a href="#" style="text-decoration:none">
 								<label id=${data[i].room} style="padding:10px;font-size:1.5rem">
 									${data[i].name}
+									<span class=${data[i].room}></span>
 								</label>
 								</a>
 					</div>`
@@ -153,6 +153,7 @@ class Chat extends Component {
 			this.setState({message:""})
 			console.log("msg caught",data)
 			if(data.receiverRoom === this.state.room){
+				$(`.${data.senderRoom}`).text(`${data.message.substring(0,20)}...`).css({"font-size":"1rem"})
 				this.setState({receiverRoom:data.senderRoom})
 				$("#conversation").append(`<div class="incoming_msg">
 				<div class="received_msg">
